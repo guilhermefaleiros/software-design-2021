@@ -71,7 +71,15 @@ Javascript/Typescript: linguagem moderna utilizada tanto para construção de ap
 * **AWS API Gateway**: serviço para gerenciamento de APIs.
 * **AWS Route 53**: serviço para fornecimento de DNS.
 
-## Justificativa de Decisões Arquiteturais
+## Decisões Arquiteturais
 
-* Amazon Web Services (AWS): para adequação de requisitos como escalabilidade
-    - AWS VPC: 
+**Padrões Arquiteturais**: foram escolhidos alguns padrões a serem utilizados de modo a resolver os requisitos arquiteturais levantados:
+  * **CQRS**: para deixar os dados em alta disponibilidade e tornar o software escalável e performático foi adotada a utilização do padrão CQRS, de modo que, dados que sejam necessários serem consultados com frequência e em formatos específicos, serão persistidas em coleções desnormalizadas separadas, indexadas justamente para otimização de buscas, aliando isso com estratégias de cache bem desenhadas. De modo que a informação original será persistida em uma base de dados transacional e normalizada, que seria a "fonte original da verdade".
+  * **Microsserviços**: serão criados microsserviços específicos para cada funcionalidade, de modo a separar as responsabilidades corretamente e permitir uma escalabilidade horizontal de determinados serviços de acordo com a demanda.
+  *  **Pub/Sub**: para sincronização entre as bases de leitura e escrita, será realizada a publicação de eventos assíncronos através de um barramento de mensagens, eventos estes que farão a replicação e atualização de dados entre as bases de dados.
+
+
+**Amazon Web Services (AWS)**: para adequação de requisitos como escalabilidade e segurança, foi escolhida a utilização de serviços gerenciados na cloud AWS, que se caracteriza por alta resiliência e performance em seus serviços:
+  * **AWS VPC**: será utilizada para manter que todas as transações e fluxos de comunicação sejam realizados em uma rede interna fechada para a internet, auxiliando na segurança de informações pertinentes ao software.
+  * **AWS EKS**: uma vez decidida a utilização de Kubernetes, o serviço gerenciado permitirá que o cluster seja escalado horizontalmente de maneira fácil, com pouco esforço e bastante segurança.
+  * **AWS EC2**: uma vez utilizado o EKS, o EC2 servirá para criação de cada nó do cluster Kubernetes.
