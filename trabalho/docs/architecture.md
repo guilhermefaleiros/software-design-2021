@@ -4,6 +4,8 @@
 
 Cada município oferece em sua rede, medicamentos específicos em determinadas quantidades e em pontos geográficos diferentes. O objetivo deste projeto é fornecer uma plataforma que forneça de forma unificada um catálogo dos medicamentos oferecidos por determinado município.
 
+[Diagrama de Contexto](https://s.icepanel.io/N6WxzShU96)
+
 ## Pontos importantes para definição da Arquitetura
 
 De forma geral, foi dado como requisito que o software deverá ser escalável, configurável por município e possuir alta disponibilidade. Isso implica em alguns pontos importantes que podem ser  importantes para definição e planejamento da arquitetura:
